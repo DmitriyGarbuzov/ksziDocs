@@ -10,24 +10,14 @@ public class DropBoxService {
     private static final String APP_KEY = "yugt30bmu00kqil";
     private static final String APP_SECRET = "fakgouskk78mjia";
 
-    private static final String asd = "5m7mQqmL3gAAAAAAAAAACSoaP0x-DxYqXtrGO7IAoRo";
+    private static final String access_token = "5m7mQqmL3gAAAAAAAAAAC8fur7Q1SxgwSbsMGoveH2cxmdri8KdDoBvnaRE_LUTG";
 
     public static void main(String[] args) {
         DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
 
         DbxRequestConfig config = new DbxRequestConfig(
                 "JavaTutorial/1.0", Locale.getDefault().toString());
-        DbxWebAuthNoRedirect webAuth = new DbxWebAuthNoRedirect(config, appInfo);
-        String authorizeUrl = webAuth.start();
-
-        DbxAuthFinish authFinish = null;
-        try {
-            authFinish = webAuth.finish(asd);
-        } catch (DbxException e) {
-            e.printStackTrace();
-        }
-        String accessToken = authFinish.accessToken;
-        DbxClient client = new DbxClient(config, accessToken);
+        DbxClient client = new DbxClient(config,access_token);
         try {
             System.out.println("Linked account: " + client.getAccountInfo().displayName);
         } catch (DbxException e) {
