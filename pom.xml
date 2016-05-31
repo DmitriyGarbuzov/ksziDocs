@@ -16,12 +16,25 @@
     </parent>
 
     <dependencies>
-        <!--Google Drive API-->
+        <!--Google Drive-->
+        <!-- http://mvnrepository.com/artifact/com.google.api-client/google-api-client -->
         <dependency>
-        <groupId>com.dropbox.core</groupId>
-        <artifactId>dropbox-core-sdk</artifactId>
-        <version>[1.7,1.8)</version>
-    </dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.20.0</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/com.google.oauth-client/google-oauth-client-jetty -->
+        <dependency>
+            <groupId>com.google.oauth-client</groupId>
+            <artifactId>google-oauth-client-jetty</artifactId>
+            <version>1.20.0</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/com.google.apis/google-api-services-drive -->
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-drive</artifactId>
+            <version>v3-rev24-1.22.0</version>
+        </dependency>
         <!---->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
@@ -61,7 +74,11 @@
             <artifactId>postgresql</artifactId>
             <version>9.4.1208</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.sun.xml.security</groupId>
+            <artifactId>xml-security-impl</artifactId>
+            <version>1.0</version>
+        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
