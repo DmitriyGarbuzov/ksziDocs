@@ -20,6 +20,9 @@ public class DocumentsGroup extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column (name = "description", nullable = true)
+    private String description;
+
     public UUID getUuid() {
         return uuid;
     }
@@ -36,11 +39,20 @@ public class DocumentsGroup extends BaseEntity {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "DocumentsGroup{" +
                 "uuid=" + uuid +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

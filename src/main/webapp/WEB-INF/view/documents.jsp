@@ -18,6 +18,27 @@
     <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"
             rel='stylesheet' type='text/css'>
+    <style type="text/css">
+        /* make sidebar nav vertical */
+        @media (min-width: 768px) {
+            .sidebar-nav .navbar .navbar-collapse {
+                padding: 0;
+                max-height: none;
+            }
+            .sidebar-nav .navbar ul {
+                float: none;
+                display: block;
+            }
+            .sidebar-nav .navbar li {
+                float: none;
+                display: block;
+            }
+            .sidebar-nav .navbar li a {
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
 <!-- Header -->
@@ -44,7 +65,68 @@
     </div>
 </nav>
 <!-- Body -->
-
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <h4>Группы документов</h4>
+            <a href="/groups/add" class="btn-block btn-default" role="button">Создать</a>
+            <br/>
+            <div class="sidebar-nav">
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <span class="visible-xs navbar-brand">Sidebar menu</span>
+                    </div>
+                    <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">Menu Item 1</a></li>
+                            <li><a href="#">Menu Item 2</a></li>
+                            <li><a href="#">Menu Item 3</a></li>
+                            <li><a href="#">Menu Item 4</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <h4>Документы</h4>
+            <a href="/documents/add" class="btn-block btn-default" role="button">Создать</a>
+            <br/>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>john@example.com</td>
+                </tr>
+                <tr>
+                    <td>Mary</td>
+                    <td>Moe</td>
+                    <td>mary@example.com</td>
+                </tr>
+                <tr>
+                    <td>July</td>
+                    <td>Dooley</td>
+                    <td>july@example.com</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
 <!-- Footer -->
 <div id="footer">
     <div class="container"></div>

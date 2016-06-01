@@ -18,6 +18,9 @@
     <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"
             rel='stylesheet' type='text/css'>
+    <style type="text/css">
+
+    </style>
 </head>
 <body>
 <!-- Header -->
@@ -44,13 +47,13 @@
     </div>
 </nav>
 <!-- Body -->
-<c:url var="saveUpdateAction" value="/save"></c:url>
+<c:url var="saveUpdateAction" value="/documents/add"></c:url>
 <div class="container">
     <c:if test="${!empty document.uuid}">
-        <h2>Редактирование</h2>
+        <h4>Редактирование документа</h4>
     </c:if>
     <c:if test="${empty document.uuid}">
-        <h2>Создание</h2>
+        <h4>Создание документа</h4>
     </c:if>
     <form:form role="form" action="${saveUpdateAction}" method="POST"
                commandName="document" enctype="multipart/form-data">
@@ -68,8 +71,7 @@
         </div>
         <div class="form-group row">
             <label class="col-sm-2 form-control-label" for="description">Описание:</label>
-            <form:input path="description" type="text" class="form-control"
-                        id="description" required="true"/>
+            <form:textarea path="description" class="form-control" id="description" rows="3"/>
         </div>
         <c:if test="${!empty document.fileName and !empty document.selfHref}">
             <div class="form-group row">

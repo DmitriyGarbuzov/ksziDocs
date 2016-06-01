@@ -54,7 +54,7 @@ public class MainController {
         return "document";
     }
 
-    @RequestMapping(value = "/group/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/groups/add", method = RequestMethod.GET)
     public String addGroup(Model model) {
         model.addAttribute("group", new DocumentsGroupDTO());
         return "group";
