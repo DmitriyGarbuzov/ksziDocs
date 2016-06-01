@@ -48,7 +48,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/documents/add")
-    public String addDocumentToGroup(@PathVariable("group_uuid") UUID groupUuid, Model model) {
+    public String addDocumentToGroup(Model model) {
         model.addAttribute("groups", documentsGroupService.getAllGroups());
         model.addAttribute("document", new DocumentDTO());
         return "document";
