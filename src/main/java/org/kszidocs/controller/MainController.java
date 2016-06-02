@@ -43,6 +43,7 @@ public class MainController {
     @RequestMapping(value = "/documents/{group_uuid}")
     public String getDocumentsByGroup(@PathVariable("group_uuid") UUID groupUuid, Model model) {
         model.addAttribute("groups", documentsGroupService.getAllGroups());
+        model.addAttribute("group", documentsGroupService.getGroup(groupUuid));
         model.addAttribute("documents", documentService.getAllDocumentsByGroupUuid(groupUuid));
         return "documents";
     }

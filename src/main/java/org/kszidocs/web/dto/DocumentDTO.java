@@ -1,5 +1,7 @@
 package org.kszidocs.web.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.UUID;
 
 public class DocumentDTO {
@@ -15,6 +17,8 @@ public class DocumentDTO {
     private String selfHref;
 
     private DocumentsGroupDTO documentsGroupDTO;
+
+    private MultipartFile file;
 
     public UUID getUuid() {
         return uuid;
@@ -62,6 +66,14 @@ public class DocumentDTO {
 
     public void setDocumentsGroupDTO(DocumentsGroupDTO documentsGroupDTO) {
         this.documentsGroupDTO = documentsGroupDTO;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 
     @Override

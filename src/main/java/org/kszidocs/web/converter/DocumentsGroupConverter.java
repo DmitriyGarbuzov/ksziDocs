@@ -1,6 +1,7 @@
 package org.kszidocs.web.converter;
 
 import com.google.common.base.Converter;
+import org.joda.time.DateTime;
 import org.kszidocs.entity.DocumentsGroup;
 import org.kszidocs.repository.DocumentsGroupRepository;
 import org.kszidocs.web.dto.DocumentsGroupDTO;
@@ -14,18 +15,23 @@ public class DocumentsGroupConverter extends Converter<DocumentsGroup, Documents
     private DocumentsGroupRepository documentsGroupRepository;
 
     @Override
-    protected DocumentsGroupDTO doForward(DocumentsGroup documentsGroup) {
+    protected DocumentsGroupDTO doForward(DocumentsGroup entity) {
         DocumentsGroupDTO dto = new DocumentsGroupDTO();
-        dto.setUuid(documentsGroup.getUuid());
-        dto.setName(documentsGroup.getName());
+        dto.setUuid(entity.getUuid());
+        dto.setName(entity.getName());
         return dto;
     }
 
     @Override
-    protected DocumentsGroup doBackward(DocumentsGroupDTO documentsGroupDTO) {
+    protected DocumentsGroup doBackward(DocumentsGroupDTO dto) {
         DocumentsGroup entity = null;
-        if(documentsGroupDTO.getUuid()!=null) {
-            entity = documentsGroupRepository.findOneByUuid(documentsGroupDTO.getUuid());
+        if (dto.getUuid() != null) {
+            entity = documentsGroupRepository.findOneByUuid(dto.getUuid());
+        } else {
+            entity = new DocumentsGroup();
+            entity.setName(dto.getName());
+            entity.setDescription(dto.getDescription());
+            entity.setCreatedTs(DateTime.now());
         }
         return entity;
     }

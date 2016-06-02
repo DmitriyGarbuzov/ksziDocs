@@ -10,7 +10,7 @@ import java.util.List;
 public class GoogleDriveService {
 
     public String uploadDocument(MultipartFile file) {
-        return "";
+        return "vk.com";
     }
 
     public List<Document> searchDocuments(String searchText) {

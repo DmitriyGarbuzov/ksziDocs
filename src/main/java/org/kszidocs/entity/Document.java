@@ -1,8 +1,12 @@
 package org.kszidocs.entity;
 
+import org.joda.time.DateTime;
 import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
@@ -12,6 +16,17 @@ public class Document extends BaseEntity{
     @Type(type = "pg-uuid")
     @Column(name = "uuid", unique = true, nullable = false)
     private UUID uuid = UUID.randomUUID();
+
+    @CreatedDate
+    @NotNull
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "created_ts", nullable = false)
+    private DateTime createdTs;
+
+    @LastModifiedDate
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "modified_ts")
+    private DateTime modifiedTs;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -35,6 +50,22 @@ public class Document extends BaseEntity{
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public DateTime getCreatedTs() {
+        return createdTs;
+    }
+
+    public void setCreatedTs(DateTime createdTs) {
+        this.createdTs = createdTs;
+    }
+
+    public DateTime getModifiedTs() {
+        return modifiedTs;
+    }
+
+    public void setModifiedTs(DateTime modifiedTs) {
+        this.modifiedTs = modifiedTs;
     }
 
     public String getTitle() {
