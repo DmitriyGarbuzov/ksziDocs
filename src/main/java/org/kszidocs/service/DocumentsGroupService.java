@@ -44,4 +44,8 @@ public class DocumentsGroupService {
                 .orElse(null);
     }
 
+    public void deleteGroup(UUID uuid) {
+        documentsGroupRepository.deleteByUuid(uuid);
+    }
+
 }

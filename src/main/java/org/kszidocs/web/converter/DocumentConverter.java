@@ -32,7 +32,7 @@ public class DocumentConverter extends Converter<Document, DocumentDTO> {
         dto.setDescription(entity.getDescription());
         dto.setFileName(entity.getFileName());
         dto.setSelfHref(entity.getSelfHref());
-        dto.setDocumentsGroupDTO(
+        dto.setGroup(
                 Optional.ofNullable(entity.getGroup())
                         .map(documentsGroupConverter::convert)
                         .orElse(null)
@@ -50,7 +50,7 @@ public class DocumentConverter extends Converter<Document, DocumentDTO> {
             entity.setCreatedTs(DateTime.now());
             entity.setTitle(dto.getTitle());
             entity.setDescription(dto.getDescription());
-            entity.setGroup(Optional.ofNullable(dto.getDocumentsGroupDTO()).map(documentsGroupConverter.reverse()::convert).orElse(null));
+            entity.setGroup(Optional.ofNullable(dto.getGroup()).map(documentsGroupConverter.reverse()::convert).orElse(null));
             entity.setFileName(dto.getFile().getOriginalFilename());
             entity.setSelfHref(googleDriveService.uploadDocument(dto.getFile()));
         }

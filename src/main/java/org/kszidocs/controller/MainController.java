@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Controller
@@ -36,6 +37,7 @@ public class MainController {
 
     @RequestMapping(value = "/documents", method = RequestMethod.GET)
     public String documents(Model model) {
+        model.addAttribute("documents", new ArrayList<DocumentDTO>());
         model.addAttribute("groups", documentsGroupService.getAllGroups());
         return "documents";
     }

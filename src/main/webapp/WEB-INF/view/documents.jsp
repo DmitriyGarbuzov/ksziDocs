@@ -71,9 +71,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
-            <h4>Группы документов</h4>
-            <a href="/groups/add" class="btn-block btn-default" role="button">Создать</a>
-            <br/>
+            <h4>Группы документов <a href="/groups/add"><i class="fa fa-plus" aria-hidden="true"></i></a></h4>
             <c:if test="${!empty groups}">
                 <div class="sidebar-nav">
                     <div class="navbar navbar-default" role="navigation">
@@ -94,8 +92,6 @@
                                     <c:if test="${!empty group && group.uuid == g.uuid}">
                                         <c:set value="active" var="classActive"/>
                                     </c:if>
-                                    <li class=""><a href="/documents">Menu Item 1</a></li>
-
                                     <a style="margin-top: 11px;margin-right: 10px;" class="pull-right"
                                        href="javascript:;" title="Delete"
                                        onclick="document.getElementById('formRemove').submit();"><i
@@ -138,34 +134,23 @@
         </div>
         <div class="col-sm-9">
 
-            <h4>Документы</h4>
-            <c:if test="${empty group.uuid}">
-                <a href="/documents/add" class="btn-block btn-default" role="button">Создать</a>
+            <h4>Документы <a href="/documents/add"><i class="fa fa-plus" aria-hidden="true"></i></a></h4>
+            <c:if test="${!empty group.uuid && !empty documents}">
                 <br/>
                 <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
-                    </tr>
-                    </thead>
+
                     <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                    </tr>
+                    <c:forEach items="${documents}" var="doc">
+                        <tr>
+                            <td>${doc.title}</td>
+                            <td>${doc.createdTs}</td>
+                            <td><a href="${doc.selfHref}" target="_blank">file ${doc.fileName}</a>
+                            <a href="<c:url value='/edit/${doc.uuid}' />" ><em
+                                    class="fa fa-pencil"></em></a>
+                            <a href="#delete_${doc.uuid}" role="button"  data-toggle="modal"><em
+                                    class="fa fa-trash"></em></a></td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </c:if>

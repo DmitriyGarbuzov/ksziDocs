@@ -1,7 +1,9 @@
 package org.kszidocs.service;
 
 import org.kszidocs.entity.Document;
+import org.kszidocs.entity.DocumentsGroup;
 import org.kszidocs.repository.DocumentRepository;
+import org.kszidocs.repository.DocumentsGroupRepository;
 import org.kszidocs.web.converter.DocumentConverter;
 import org.kszidocs.web.converter.DocumentsGroupConverter;
 import org.kszidocs.web.dto.DocumentDTO;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class DocumentService {
@@ -21,8 +24,16 @@ public class DocumentService {
     @Autowired
     private DocumentConverter converter;
 
-    public List<Document> getAllDocumentsByGroupUuid(UUID groupUuid) {
-        return null;
+    @Autowired
+    private DocumentsGroupRepository groupRepository;
+
+    public List<DocumentDTO> getAllDocumentsByGroupUuid(UUID groupUuid) {
+        DocumentsGroup group = groupRepository.findOneByUuid(groupUuid);
+        return documentRepository
+                .findAllByGroupId(group.getId())
+                .stream()
+                .map(converter::convert)
+                .collect(Collectors.toList());
     }
 
     public DocumentDTO getDocument(UUID uuid) {

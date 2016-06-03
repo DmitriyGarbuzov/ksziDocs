@@ -73,6 +73,14 @@
             <label class="col-sm-2 form-control-label" for="description">Описание:</label>
             <form:textarea path="description" class="form-control" id="description" rows="3"/>
         </div>
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label" for="groupSelect">Группа:</label>
+            <form:select path="group.uuid" id="groupSelect" class="form-control">
+                <c:forEach var="g" items="${groups}">
+                    <option value="${g.uuid}" ${group.uuid == g.uuid ? 'selected="selected"' : ''} >${g.name}</option>
+                </c:forEach>
+            </form:select>
+        </div>
         <c:if test="${!empty document.fileName and !empty document.selfHref}">
             <div class="form-group row">
                 <label class="col-sm-2 form-control-label" for="fileHref">Загруженый файл:</label>
