@@ -72,7 +72,31 @@
     <div class="row">
         <div class="col-sm-3">
             <h4>Группы документов <a href="/groups/add"><i class="fa fa-plus" aria-hidden="true"></i></a></h4>
-            <c:if test="${!empty groups}">
+            <br/>
+            <table class="table">
+                <tbody>
+                <c:forEach items="${groups}" var="g">
+                    <c:if test="${!empty group && group.uuid == g.uuid}">
+                        <c:set value="active" var="classActive"/>
+                    </c:if>
+                    <tr>
+
+                        <td class="${classActive}">
+                            <a style="margin-top: 0px;margin-right: 0px;" class="pull-right"
+                               href="javascript:;" title="Delete"
+                               onclick="document.getElementById('formRemove').submit();"><i
+                                    class="fa fa-trash-o"></i></a>
+                            <a style="margin-top: 0px;margin-right: 4px;" class="pull-right"
+                               href="javascript:;" title="Delete"
+                               onclick="document.getElementById('formRemove').submit();"><i
+                                    class="fa fa-pencil-square-o"></i></a>
+                            <a href="/documents/${g.uuid}">${g.name}</a></td>
+
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+            <%--<c:if test="${!empty groups}">
                 <div class="sidebar-nav">
                     <div class="navbar navbar-default" role="navigation">
                         <div class="navbar-header">
@@ -130,7 +154,7 @@
                         </div>
                     </div>
                 </div>
-            </c:if>
+            </c:if>--%>
         </div>
         <div class="col-sm-9">
 
@@ -138,17 +162,16 @@
             <c:if test="${!empty group.uuid && !empty documents}">
                 <br/>
                 <table class="table">
-
                     <tbody>
                     <c:forEach items="${documents}" var="doc">
                         <tr>
                             <td>${doc.title}</td>
                             <td>${doc.createdTs}</td>
-                            <td><a href="${doc.selfHref}" target="_blank">file ${doc.fileName}</a>
-                            <a href="<c:url value='/edit/${doc.uuid}' />" ><em
-                                    class="fa fa-pencil"></em></a>
-                            <a href="#delete_${doc.uuid}" role="button"  data-toggle="modal"><em
-                                    class="fa fa-trash"></em></a></td>
+                            <td class="pull-right"><a href="${doc.selfHref}" target="_blank">file ${doc.fileName}</a>
+                                <a href="<c:url value='/edit/${doc.uuid}' />"><em
+                                        class="fa fa-pencil"></em></a>
+                                <a href="#delete_${doc.uuid}" role="button" data-toggle="modal"><em
+                                        class="fa fa-trash"></em></a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
