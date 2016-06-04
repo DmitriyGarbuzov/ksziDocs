@@ -4,7 +4,6 @@ import com.google.api.client.http.FileContent;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.Permission;
-import org.kszidocs.Test;
 import org.kszidocs.util.FileHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +22,7 @@ public class GoogleDriveAPIHelper {
     private static final Drive client = GoogleDriveConnector.getClient();
 
     public static String uploadFile(String path, String mimeType, String description) {
-        java.io.File content = new java.io.File(Test.class.getClassLoader().getResource(path).getFile());
+        java.io.File content = new java.io.File(GoogleDriveAPIHelper.class.getClassLoader().getResource(path).getFile());
         File body = new File();
         body.setName(content.getName());
         body.setDescription(description);
@@ -49,7 +48,7 @@ public class GoogleDriveAPIHelper {
     }
 
     private static String getFileIdFromHref(String selfHref) {
-        return "";
+        return selfHref.split("/")[5];
     }
 
     private static Permission insertReadPermissions(String fileId) throws IOException {

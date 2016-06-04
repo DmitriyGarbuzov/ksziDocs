@@ -9,6 +9,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class FileHelper {
 
@@ -21,23 +24,30 @@ public class FileHelper {
 
     }
 
-    public static File createNewFile(String path) throws IOException {
-        File file = new File(path);
+    public static File createNewFile(String fileName) throws IOException, URISyntaxException {
+        URL url = FileHelper.class.getResource(TMP_FILE_DIR);
+        File parentDirectory = new File(new URI(url.toString()));
+        File file = new File(parentDirectory, fileName);
         file.createNewFile();
         return file;
     }
 
     public static String writeToFile(MultipartFile file) {
-        String path = TMP_FILE_DIR + file.getOriginalFilename();
+        String path = getPath(file.getOriginalFilename());
         try {
-            File targetFile = createNewFile(path);
+            File targetFile = createNewFile(file.getOriginalFilename());
             OutputStream outStream = null;
             outStream = new FileOutputStream(targetFile);
             outStream.write(file.getBytes());
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
+            logger.error("Error while creating new file ", e);
             e.printStackTrace();
         }
         return path;
+    }
+
+    private static String getPath(String fileName) {
+        return FileHelper.class.getClassLoader().getResource(TMP_FILE_DIR + fileName).getFile();
     }
 
     public static void removeFile(String path) {
