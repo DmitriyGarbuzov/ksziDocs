@@ -1,5 +1,6 @@
 package org.kszidocs.controller;
 
+import org.kszidocs.entity.DocumentsGroup;
 import org.kszidocs.service.DocumentService;
 import org.kszidocs.service.DocumentsGroupService;
 import org.kszidocs.web.dto.DocumentDTO;
@@ -28,7 +29,13 @@ public class RestController {
                                      RedirectAttributes redirectAttributes) {
         dto.setFile(file);
         documentService.saveDocument(dto);
-        return "redirect:/documents"+""; //here must be uuid of group
+        return "redirect:/documents/" + dto.getGroup().getUuid();
+    }
+
+    @RequestMapping(value = "/documents/delete/{uuid}", method = RequestMethod.POST)
+    public String deleteDocument(@PathVariable("uuid") UUID uuid) {
+        documentService.deleteDocument(uuid);
+        return "redirect:/documents";
     }
 
     @RequestMapping(value = "/groups/add", method = RequestMethod.POST)
@@ -37,8 +44,9 @@ public class RestController {
         return "redirect:/documents";
     }
 
-    @RequestMapping(value = "/groups/delete", method = RequestMethod.POST)
-    public String deleteGroup(@PathVariable("uuid") UUID uuid){
+    @RequestMapping(value = "/groups/delete/{uuid}", method = RequestMethod.POST)
+    public String deleteGroup(@PathVariable("uuid") UUID uuid) {
+        documentService.deleteAllDocumentsByGroupUuid(uuid);
         documentsGroupService.deleteGroup(uuid);
         return "redirect:/documents";
     }

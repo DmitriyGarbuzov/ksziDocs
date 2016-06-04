@@ -51,4 +51,12 @@ public class DocumentService {
                 .map(converter::convert)
                 .orElse(null);
     }
+    public void deleteDocument(UUID uuid){
+        documentRepository.deleteByUuid(uuid);
+    }
+
+    public void deleteAllDocumentsByGroupUuid(UUID uuid) {
+        DocumentsGroup group = groupRepository.findOneByUuid(uuid);
+        documentRepository.deleteByGroupId(group.getId());
+    }
 }

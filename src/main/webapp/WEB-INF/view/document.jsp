@@ -83,7 +83,7 @@
         </div>
         <c:if test="${!empty document.fileName and !empty document.selfHref}">
             <div class="form-group row">
-                <label class="col-sm-2 form-control-label" for="fileHref">Загруженый файл:</label>
+                <label class="col-sm-2 form-control-label" for="fileHref">Загруженный файл:</label>
                 <label class="col-sm-2 form-control-label" id="fileHref"><a
                         href="${document.selfHref}" target="_blank">${document.fileName}</a></label>
             </div>

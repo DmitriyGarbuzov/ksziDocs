@@ -80,85 +80,50 @@
                         <c:set value="active" var="classActive"/>
                     </c:if>
                     <tr>
-
                         <td class="${classActive}">
                             <a style="margin-top: 0px;margin-right: 0px;" class="pull-right"
-                               href="javascript:;" title="Delete"
-                               onclick="document.getElementById('formRemove').submit();"><i
+                               href="#r_group_${g.uuid}" title="Удалить"
+                               role="button" data-toggle="modal"><i
                                     class="fa fa-trash-o"></i></a>
                             <a style="margin-top: 0px;margin-right: 4px;" class="pull-right"
-                               href="javascript:;" title="Delete"
-                               onclick="document.getElementById('formRemove').submit();"><i
+                               href="/group/edit/${g.uuid}" title="Редактировать"><i
                                     class="fa fa-pencil-square-o"></i></a>
                             <a href="/documents/${g.uuid}">${g.name}</a></td>
-
                     </tr>
+                    <div id="r_group_${g.uuid}" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Подтвердите удаление</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Вы уверены что хотите удалить данную группу? </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form:form id="formRemove1" action="/groups/delete/${g.uuid}" method="post">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть
+                                        </button>
+                                        <a href="javascript:;" title="Delete"
+                                           onclick="document.getElementById('formRemove1').submit();"><i
+                                                class="fa fa-trash"></i>Удалить</a>
+                                    </form:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </c:forEach>
                 </tbody>
             </table>
-            <%--<c:if test="${!empty groups}">
-                <div class="sidebar-nav">
-                    <div class="navbar navbar-default" role="navigation">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                                    data-target=".sidebar-navbar-collapse">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <span class="visible-xs navbar-brand">Sidebar menu</span>
-                        </div>
-
-                        <div class="navbar-collapse collapse sidebar-navbar-collapse">
-                            <ul class="nav navbar-nav">
-                                <c:forEach items="${groups}" var="g">
-                                    <c:if test="${!empty group && group.uuid == g.uuid}">
-                                        <c:set value="active" var="classActive"/>
-                                    </c:if>
-                                    <a style="margin-top: 11px;margin-right: 10px;" class="pull-right"
-                                       href="javascript:;" title="Delete"
-                                       onclick="document.getElementById('formRemove').submit();"><i
-                                            class="fa fa-trash-o"></i></a>
-                                    <a style="margin-top: 11px;margin-right: 10px;" class="pull-right"
-                                       href="javascript:;" title="Delete"
-                                       onclick="document.getElementById('formRemove').submit();"><i
-                                            class="fa fa-pencil-square-o"></i></a>
-                                    <li class="${classActive}"><a href="/documents/${g.uuid}">${g.name}</a></li>
-                                </c:forEach>
-                            </ul>
-                        </div>
-                        <!--/.nav-collapse -->
-
-                    </div>
-                </div>
-            </c:if>
-            <c:if test="${empty groups}">
-                <div class="sidebar-nav">
-                    <div class="navbar navbar-default" role="navigation">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                                    data-target=".sidebar-navbar-collapse">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <span class="visible-xs navbar-brand">Sidebar menu</span>
-                        </div>
-
-                        <div class="navbar-collapse collapse sidebar-navbar-collapse">
-                            <ul class="nav navbar-nav">
-                                <li>У вас нет групп</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </c:if>--%>
         </div>
         <div class="col-sm-9">
 
-            <h4>Документы <a href="/documents/add"><i class="fa fa-plus" aria-hidden="true"></i></a></h4>
+            <h4>Документы
+                <c:if test="${!empty groups}">
+                    <a href="/documents/add"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                </c:if>
+            </h4>
             <c:if test="${!empty group.uuid && !empty documents}">
                 <br/>
                 <table class="table">
@@ -167,12 +132,43 @@
                         <tr>
                             <td>${doc.title}</td>
                             <td>${doc.createdTs}</td>
-                            <td class="pull-right"><a href="${doc.selfHref}" target="_blank">file ${doc.fileName}</a>
-                                <a href="<c:url value='/edit/${doc.uuid}' />"><em
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><a href="${doc.selfHref}" target="_blank">file ${doc.fileName}</a>
+                                <a href="<c:url value='/document/edit/${doc.uuid}' />"><em
                                         class="fa fa-pencil"></em></a>
-                                <a href="#delete_${doc.uuid}" role="button" data-toggle="modal"><em
+                                <a href="#r_doc_${doc.uuid}" role="button" data-toggle="modal"><em
                                         class="fa fa-trash"></em></a></td>
                         </tr>
+                        <div id="r_doc_${doc.uuid}" class="modal fade">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Подтвердите удаление</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Вы уверены что хотите удалить данный документ? </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form:form id="formRemove2" action="/documents/delete/${doc.uuid}"
+                                                   method="post">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть
+                                            </button>
+                                            <a href="javascript:;" title="Delete"
+                                               onclick="document.getElementById('formRemove2').submit();"><i
+                                                    class="fa fa-trash"></i>Удалить</a>
+                                        </form:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </c:forEach>
                     </tbody>
                 </table>

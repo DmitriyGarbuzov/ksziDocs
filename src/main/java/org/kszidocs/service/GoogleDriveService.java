@@ -10,14 +10,14 @@ import java.util.List;
 public class GoogleDriveService {
 
     public String uploadDocument(MultipartFile file) {
-        return "vk.com";
+        return "https://vk.com";
     }
 
     public List<Document> searchDocuments(String searchText) {
         return null;
     }
 
-    public void deleteDocument(String selfHref) {
+    public void removeDocument(String fileName) {
 
     }
 }

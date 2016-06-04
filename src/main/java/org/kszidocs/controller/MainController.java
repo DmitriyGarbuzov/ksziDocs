@@ -81,6 +81,7 @@ public class MainController {
     @RequestMapping(value = "/document/edit/{uuid}", method = RequestMethod.GET)
     public String editDocument(@PathVariable("uuid") UUID uuid, Model model) {
         DocumentDTO dto = documentService.getDocument(uuid);
+        model.addAttribute("groups", documentsGroupService.getAllGroups());
         model.addAttribute("document", dto);
         return "document";
     }
