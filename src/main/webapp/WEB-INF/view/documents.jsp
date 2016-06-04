@@ -76,11 +76,8 @@
             <table class="table">
                 <tbody>
                 <c:forEach items="${groups}" var="g">
-                    <c:if test="${!empty group && group.uuid == g.uuid}">
-                        <c:set value="active" var="classActive"/>
-                    </c:if>
                     <tr>
-                        <td class="${classActive}">
+                        <td ${!empty group && group.uuid == g.uuid ? 'class="active"' : ''}>
                             <a style="margin-top: 0px;margin-right: 0px;" class="pull-right"
                                href="#r_group_${g.uuid}" title="Удалить"
                                role="button" data-toggle="modal"><i
@@ -129,21 +126,17 @@
                 <table class="table">
                     <tbody>
                     <c:forEach items="${documents}" var="doc">
-                        <tr>
-                            <td>${doc.title}</td>
-                            <td>${doc.createdTs}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><a href="${doc.selfHref}" target="_blank">file ${doc.fileName}</a>
+                        <td>${doc.title}</td>
+                        <td>${doc.createdTs}</td>
+                        <td>
+                            <div class="pull-right">
+                                <a href="${doc.selfHref}" target="_blank">file ${doc.fileName}</a>
                                 <a href="<c:url value='/document/edit/${doc.uuid}' />"><em
                                         class="fa fa-pencil"></em></a>
                                 <a href="#r_doc_${doc.uuid}" role="button" data-toggle="modal"><em
-                                        class="fa fa-trash"></em></a></td>
+                                        class="fa fa-trash"></em></a>
+                            </div>
+                        </td>
                         </tr>
                         <div id="r_doc_${doc.uuid}" class="modal fade">
                             <div class="modal-dialog">

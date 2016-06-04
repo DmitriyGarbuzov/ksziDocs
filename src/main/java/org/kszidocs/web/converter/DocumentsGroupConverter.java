@@ -29,7 +29,7 @@ public class DocumentsGroupConverter extends Converter<DocumentsGroup, Documents
         if (dto.getUuid() != null) {
             entity = documentsGroupRepository.findOneByUuid(dto.getUuid());
             if(dto.getName() != null) {
-                entity = perfomUpdate(dto, entity); // this var comes from dto select
+                entity = perfomUpdate(dto, entity); // this var comes from form select
             }
         } else {
             entity = perfomNewEntity(dto);
