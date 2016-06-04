@@ -81,10 +81,10 @@
                             <a style="margin-top: 0px;margin-right: 0px;" class="pull-right"
                                href="#r_group_${g.uuid}" title="Удалить"
                                role="button" data-toggle="modal"><i
-                                    class="fa fa-trash-o"></i></a>
+                                    class="fa fa-trash"></i></a>
                             <a style="margin-top: 0px;margin-right: 4px;" class="pull-right"
                                href="/group/edit/${g.uuid}" title="Редактировать"><i
-                                    class="fa fa-pencil-square-o"></i></a>
+                                    class="fa fa-pencil"></i></a>
                             <a href="/documents/${g.uuid}">${g.name}</a></td>
                     </tr>
                     <div id="r_group_${g.uuid}" class="modal fade">

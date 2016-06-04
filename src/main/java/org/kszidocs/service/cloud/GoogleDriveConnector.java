@@ -29,7 +29,7 @@ public class GoogleDriveConnector {
     private static final Logger logger = LoggerFactory
             .getLogger(GoogleDriveConnector.class);
 
-    private static final String APPLICATION_NAME = "docs";
+    private static final String APPLICATION_NAME = "kszidocs";
 
     private static final String JSON_FILE_PATH = "/cloud_creds.json";
 
@@ -54,12 +54,12 @@ public class GoogleDriveConnector {
                     ServiceAccountCredentials.class
             );
         } catch (IOException e) {
-            logger.error("Can't load credentials for Google Drive",e);
+            logger.debug("Can't load credentials for Google Drive",e);
             e.printStackTrace();
         }
         IDENTITY = credentials.getClient_email();
         CREDENTIALS = credentials.getPrivate_key();
-        logger.error("Success loaded credentials for Google Drive, identity '{}'",IDENTITY);
+        logger.debug("Success loaded credentials for Google Drive, identity '{}'",IDENTITY);
     }
 
     public static synchronized Drive getClient() {

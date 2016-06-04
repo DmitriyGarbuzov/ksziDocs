@@ -49,36 +49,57 @@
 <!-- Body -->
 <div class="container">
     <c:url var="searchAction" value="/search"></c:url>
-    <form:form role="form" action="${searchAction}" commandName="searchDto" method="POST">
+    <form:form id="searchForm" role="form" action="${searchAction}" commandName="searchDto" method="POST">
         <div class="form-group row">
-            <label class="col-sm-2 form-control-label" for="textarea">Текст для пошуку:</label>
+            <label class="col-sm-2 form-control-label" for="textarea">Текст для поиска:</label>
             <form:textarea path="searchText" class="form-control" id="textarea" rows="3"/>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2">Тип пошуку</label>
+            <label class="col-sm-2">Тип поиска</label>
             <div class="col-sm-10">
                 <div class="radio">
                     <label> <form:radiobutton path="searchType"  name="gridRadio1"
-                                              id="gridRadios1" value="1" checked="true"/>Пошук за Темою
+                                              id="gridRadios1" value="1" checked="true"/>Поиск по теме
                     </label>
                 </div>
                 <div class="radio disabled">
                     <label> <form:radiobutton path="searchType" name="gridRadio2"
-                                              id="gridRadios2" value="2" disabled="true"/> Пошук за ключовими словами
+                                              id="gridRadios2" value="2" disabled="true"/> Поиск по описанию
                     </label>
                 </div>
                 <div class="radio disabled">
                     <label> <form:radiobutton path="searchType" name="gridRadio3"
-                                              id="gridRadios3" value="3" disabled="false"/> Пошук за текстом робіт
+                                              id="gridRadios3" value="3" disabled="false"/> Поиск по тексту документов
                     </label>
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success">Пошук</button>
-        <button type="button" onclick="history.go(-1);" class="btn btn-danger">Назад</button>
+        <a href="javascript:;" title="Поиск"
+           onclick="document.getElementById('searchForm').submit();"><i
+                class="fa fa-search"></i></a>
+    <a title="Назад" onclick="history.go(-1);" ><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
     </form:form>
     <br/>
 </div>
+
+<c:if test="${!empty documents}">
+    <br/>
+    <table class="table">
+        <tbody>
+        <c:forEach items="${documents}" var="doc">
+            <td>${doc.title}</td>
+            <td>${doc.createdTs}</td>
+            <td>${doc.group.name}</td>
+            <td>
+                <div class="pull-right">
+                    <a href="${doc.selfHref}" target="_blank">file ${doc.fileName}</a>
+                </div>
+            </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</c:if>
 <!-- Footer -->
 <div id="footer">
     <div class="container"></div>

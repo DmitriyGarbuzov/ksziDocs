@@ -1,23 +1,28 @@
 package org.kszidocs.service;
 
 import org.kszidocs.entity.Document;
+import org.kszidocs.service.cloud.GoogleDriveAPIHelper;
+import org.kszidocs.util.FileHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
 public class GoogleDriveService {
 
     public String uploadDocument(MultipartFile file) {
-        return "https://vk.com";
+        return GoogleDriveAPIHelper.uploadFile(FileHelper.writeToFile(file), file.getContentType(), "");
     }
 
-    public List<Document> searchDocuments(String searchText) {
-        return null;
+    public List<String> searchDocuments(String text) {
+        return GoogleDriveAPIHelper.searchFiles(text);
     }
 
-    public void removeDocument(String fileName) {
-
+    public void removeDocument(String selfHref) {
+        GoogleDriveAPIHelper.removeFile(selfHref);
     }
 }

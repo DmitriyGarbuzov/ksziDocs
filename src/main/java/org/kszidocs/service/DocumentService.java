@@ -59,4 +59,20 @@ public class DocumentService {
         DocumentsGroup group = groupRepository.findOneByUuid(uuid);
         documentRepository.deleteByGroupId(group.getId());
     }
+
+    public List<Document> searchByTitle(String text) {
+        return documentRepository
+                .findAll()
+                .stream()
+                .filter(document -> document.getTitle().contains(text))
+                .collect(Collectors.toList());
+    }
+
+    public List<Document> searchByDescription(String text) {
+        return documentRepository
+                .findAll()
+                .stream()
+                .filter(document -> document.getDescription().contains(text))
+                .collect(Collectors.toList());
+    }
 }
