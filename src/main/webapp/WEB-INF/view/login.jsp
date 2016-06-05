@@ -9,7 +9,7 @@
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Дипломи</title>
+    <title>Документы</title>
     <meta charset="utf-8">
     <link
             href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -31,7 +31,7 @@
                 class="icon-bar"></span> <span class="icon-bar"></span> <span
                 class="icon-bar"></span>
         </button>
-        <a href="#" class="navbar-brand">Дипломи</a>
+        <a href="#" class="navbar-brand">Документы</a>
     </div>
 </nav>
 <!-- Body -->
