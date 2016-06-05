@@ -54,11 +54,12 @@ public class DocumentService {
                 .map(converter::convert)
                 .orElse(null);
     }
-    public void deleteDocument(UUID uuid){
+
+    public void deleteDocument(UUID uuid) {
         Document document = documentRepository.findOneByUuid(uuid);
-        String selfHref= document.getSelfHref();
+        String selfHref = document.getSelfHref();
         documentRepository.deleteByUuid(uuid);
-        if(!selfHref.isEmpty()) {
+        if (!selfHref.isEmpty()) {
             googleDriveService.removeDocument(selfHref);
         }
     }
@@ -72,7 +73,8 @@ public class DocumentService {
         return documentRepository
                 .findAll()
                 .stream()
-                .filter(document -> document.getTitle().toLowerCase().contains(text.toLowerCase()))
+                .filter(document -> document.getTitle().toLowerCase().contains(text.toLowerCase())
+                        || document.getTitle().toLowerCase().equals(text.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
@@ -80,7 +82,8 @@ public class DocumentService {
         return documentRepository
                 .findAll()
                 .stream()
-                .filter(document -> document.getDescription().toLowerCase().contains(text.toLowerCase()))
+                .filter(document -> document.getDescription().toLowerCase().contains(text.toLowerCase())
+                        || document.getDescription().toLowerCase().contains(text.toLowerCase()))
                 .collect(Collectors.toList());
     }
 }

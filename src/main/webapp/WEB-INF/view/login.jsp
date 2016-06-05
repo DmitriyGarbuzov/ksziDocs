@@ -66,7 +66,7 @@
                 <button type="submit" id="login" name="login" class="btn btn-default">
                     Войти
                 </button>
-                <a href="/registration" class="btn btn-grey">Регистрация</a>
+                <a href="/registration" class="btn btn-primary">Регистрация</a>
             </div>
         </div>
     </form>

@@ -33,8 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/search",
                         "/")
                 .access("hasRole('ROLE_USER')")
-                .antMatchers("/add",
-                        "/edit")
+                .antMatchers("/groups/add",
+                        "/group/edit",
+                        "/documents/add",
+                        "/document/edit")
                 .access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/registration").permitAll()
                 .anyRequest().permitAll()

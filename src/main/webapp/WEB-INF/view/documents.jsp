@@ -84,58 +84,75 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
-            <h4>Группы документов <a href="/groups/add"><i class="fa fa-plus" aria-hidden="true"></i></a></h4>
-            <br/>
-            <table class="table">
-                <tbody>
-                <c:forEach items="${groups}" var="g">
-                    <tr>
-                        <td ${!empty group && group.uuid == g.uuid ? 'class="active"' : ''}>
-                            <a style="margin-top: 0px;margin-right: 0px;" class="pull-right"
-                               href="#r_group_${g.uuid}" title="Удалить"
-                               role="button" data-toggle="modal"><i
-                                    class="fa fa-trash"></i></a>
-                            <a style="margin-top: 0px;margin-right: 4px;" class="pull-right"
-                               href="/group/edit/${g.uuid}" title="Редактировать"><i
-                                    class="fa fa-pencil"></i></a>
-                            <a href="/documents/${g.uuid}">${g.name}</a></td>
-                    </tr>
-                    <div id="r_group_${g.uuid}" class="modal fade">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"
-                                            aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title">Подтвердите удаление</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Вы уверены что хотите удалить данную группу? </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <form:form id="formRemove1" action="/groups/delete/${g.uuid}" method="post">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть
-                                        </button>
-                                        <a href="javascript:;" title="Delete"
-                                           onclick="document.getElementById('formRemove1').submit();"><i
-                                                class="fa fa-trash"></i>Удалить</a>
-                                    </form:form>
+            <h4>Группы документов
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <a class="btn btn-grey" href="/groups/add">Создать</a>
+                </sec:authorize>
+            </h4>
+            <c:if test="${empty groups}">
+                <table class="table">
+                    <tbody>
+                    <td>Пусто</td>
+                    </tbody>
+                </table>
+            </c:if>
+            <c:if test="${!empty groups}">
+                <table class="table">
+                    <tbody>
+                    <c:forEach items="${groups}" var="g">
+                        <tr>
+                            <td ${!empty group && group.uuid == g.uuid ? 'class="active"' : ''}>
+
+                                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                    <a style="margin-top: 0px;margin-right: 0px;" class="pull-right"
+                                       href="#r_group_${g.uuid}" title="Удалить"
+                                       role="button" data-toggle="modal"><i
+                                            class="fa fa-trash"></i></a>
+                                    <a style="margin-top: 0px;margin-right: 4px;" class="pull-right"
+                                       href="/group/edit/${g.uuid}" title="Редактировать"><i
+                                            class="fa fa-pencil"></i></a>
+                                </sec:authorize>
+
+                                <a href="/documents/${g.uuid}">${g.name}</a></td>
+                        </tr>
+                        <div id="r_group_${g.uuid}" class="modal fade">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Подтвердите удаление</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Вы уверены что хотите удалить данную группу? </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form:form id="formRemove1" action="/groups/delete/${g.uuid}" method="post">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть
+                                            </button>
+                                            <a href="javascript:;" title="Delete"
+                                               onclick="document.getElementById('formRemove1').submit();"><i
+                                                    class="fa fa-trash"></i>Удалить</a>
+                                        </form:form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </c:forEach>
-                </tbody>
-            </table>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </c:if>
         </div>
         <div class="col-sm-9">
 
             <h4>Документы
-                <c:if test="${!empty groups}">
-                    <a href="/documents/add"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                </c:if>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <c:if test="${!empty groups}">
+                        <a class="btn btn-grey" href="/documents/add">Создать</a>
+                    </c:if>
+                </sec:authorize>
             </h4>
             <c:if test="${!empty group.uuid && !empty documents}">
-                <br/>
                 <table class="table">
                     <tbody>
                     <c:forEach items="${documents}" var="doc">
@@ -144,10 +161,12 @@
                         <td>
                             <div class="pull-right">
                                 <a href="${doc.selfHref}" target="_blank">${doc.fileName}&nbsp;&nbsp;</a>
-                                <a href="<c:url value='/document/edit/${doc.uuid}' />"><em
-                                        class="fa fa-pencil"></em></a>&nbsp;&nbsp;
-                                <a href="#r_doc_${doc.uuid}" role="button" data-toggle="modal"><em
-                                        class="fa fa-trash"></em></a>
+                                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                    <a href="<c:url value='/document/edit/${doc.uuid}' />"><em
+                                            class="fa fa-pencil"></em></a>&nbsp;&nbsp;
+                                    <a href="#r_doc_${doc.uuid}" role="button" data-toggle="modal"><em
+                                            class="fa fa-trash"></em></a>
+                                </sec:authorize>
                             </div>
                         </td>
                         </tr>
@@ -176,6 +195,13 @@
                             </div>
                         </div>
                     </c:forEach>
+                    </tbody>
+                </table>
+            </c:if>
+            <c:if test="${empty documents}">
+                <table class="table">
+                    <tbody>
+                    <td>Пусто</td>
                     </tbody>
                 </table>
             </c:if>

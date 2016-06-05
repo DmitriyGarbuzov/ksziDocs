@@ -4,7 +4,31 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     <changeSet author="dmitriy.garbuzov" id="1">
         <sql>
-           SELECT 1;
+            <!--Drop tables-->
+
+            drop table if exists documents cascade;
+            drop table if exists documents_group cascade;
+            drop table if exists user_roles cascade;
+            drop table if exists users cascade;
+            drop sequence if exists hibernate_sequence;
+
+            <!--Create tables-->
+            create table documents (id int8 not null, created_ts timestamp not null, description varchar(255), file_name varchar(255), modified_ts timestamp, self_href varchar(255), title varchar(255) not null, uuid uuid not null, group_id int8 not null, primary key (id));
+            create table documents_group (id int8 not null, created_ts timestamp not null, description varchar(255), modified_ts timestamp, name varchar(255) not null, uuid uuid not null, primary key (id));
+            create table user_roles (user_role_id int8 not null, role varchar(255), userid int8, primary key (user_role_id));
+            create table users (userid int8 not null, email varchar(255), enabled int4, password varchar(255), username varchar(255), primary key (userid));
+
+            <!--Alter constraints-->
+            alter table documents add constraint UK_fjnuaofw1lpmiuei4sqysjt1q  unique (uuid);
+            alter table documents_group add constraint UK_i2qqy2j63yq8iwvo4ew14yypb  unique (uuid);
+            alter table documents add constraint FK_3vfafspnrx6hbqlwpx4viqowg foreign key (group_id) references documents_group;
+            create sequence hibernate_sequence;
+
+            <!--Insert admin user {admin_kszi,admin_kszi}-->
+            INSERT into users (userid, username,email, password, enabled) VALUES (1, 'admin_kszi', 'admin@gmail.com', '$2a$04$.RDNA6AE2VkpF1310/zW/OIzKxeTA2A77M2IbnojlcgbLRoBan6we',1);
+            INSERT into user_roles (user_role_id, userid, role) VALUES (1, 1, 'ROLE_ADMIN');
+            INSERT into user_roles (user_role_id, userid, role) VALUES (2, 1, 'ROLE_USER');
+
         </sql>
     </changeSet>
 </databaseChangeLog>
