@@ -130,9 +130,9 @@
                         <td>${doc.createdTs}</td>
                         <td>
                             <div class="pull-right">
-                                <a href="${doc.selfHref}" target="_blank">file ${doc.fileName}</a>
+                                <a href="${doc.selfHref}" target="_blank">${doc.fileName}&nbsp;&nbsp;</a>
                                 <a href="<c:url value='/document/edit/${doc.uuid}' />"><em
-                                        class="fa fa-pencil"></em></a>
+                                        class="fa fa-pencil"></em></a>&nbsp;&nbsp;
                                 <a href="#r_doc_${doc.uuid}" role="button" data-toggle="modal"><em
                                         class="fa fa-trash"></em></a>
                             </div>

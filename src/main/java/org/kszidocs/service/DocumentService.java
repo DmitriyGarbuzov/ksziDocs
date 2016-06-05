@@ -27,6 +27,9 @@ public class DocumentService {
     @Autowired
     private DocumentsGroupRepository groupRepository;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
     public List<DocumentDTO> getAllDocumentsByGroupUuid(UUID groupUuid) {
         DocumentsGroup group = groupRepository.findOneByUuid(groupUuid);
         return documentRepository
@@ -52,7 +55,12 @@ public class DocumentService {
                 .orElse(null);
     }
     public void deleteDocument(UUID uuid){
+        Document document = documentRepository.findOneByUuid(uuid);
+        String selfHref= document.getSelfHref();
         documentRepository.deleteByUuid(uuid);
+        if(!selfHref.isEmpty()) {
+            googleDriveService.removeDocument(selfHref);
+        }
     }
 
     public void deleteAllDocumentsByGroupUuid(UUID uuid) {

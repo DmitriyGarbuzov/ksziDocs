@@ -1,6 +1,5 @@
 package org.kszidocs.util;
 
-import org.kszidocs.service.cloud.GoogleDriveAPIHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,33 +8,30 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 public class FileHelper {
 
     private static final Logger logger = LoggerFactory
             .getLogger(FileHelper.class);
 
-    private static final String TMP_FILE_DIR = "tmp_files/";
+    private static final String TMP_FILE_DIR = System.getProperty("user.dir") + "/tmp_files";
 
     private FileHelper() {
 
     }
 
     public static File createNewFile(String fileName) throws IOException, URISyntaxException {
-        URL url = FileHelper.class.getResource(TMP_FILE_DIR);
-        File parentDirectory = new File(new URI(url.toString()));
+        File parentDirectory = new File(TMP_FILE_DIR);
         File file = new File(parentDirectory, fileName);
         file.createNewFile();
         return file;
     }
 
     public static String writeToFile(MultipartFile file) {
-        String path = getPath(file.getOriginalFilename());
+        File targetFile = null;
         try {
-            File targetFile = createNewFile(file.getOriginalFilename());
+            targetFile = createNewFile(file.getOriginalFilename());
             OutputStream outStream = null;
             outStream = new FileOutputStream(targetFile);
             outStream.write(file.getBytes());
@@ -43,11 +39,8 @@ public class FileHelper {
             logger.error("Error while creating new file ", e);
             e.printStackTrace();
         }
-        return path;
-    }
 
-    private static String getPath(String fileName) {
-        return FileHelper.class.getClassLoader().getResource(TMP_FILE_DIR + fileName).getFile();
+        return targetFile.getPath();
     }
 
     public static void removeFile(String path) {

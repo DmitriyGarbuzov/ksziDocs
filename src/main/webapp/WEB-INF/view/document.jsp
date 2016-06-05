@@ -20,7 +20,69 @@
             rel='stylesheet' type='text/css'>
     <style type="text/css">
 
+        .content_hide {
+            width: 100%;
+            /* Full Width */
+            height: 5px;
+            margin: -20px 0px 50px 0px;
+            background: #FFFFFF;
+            display: none;
+        }
+
+        .content_visible {
+            width: 100%;
+            /* Full Width */
+            height: 5px;
+            margin: -20px 0px 50px 0px;
+            background: #FFFFFF;
+            display: block;
+        }
+
+        .expand {
+            width: 100%;
+            height: 1px;
+            margin: 2px 0;
+            background: #504A4B;
+            position: absolute;
+                box-shadow: 0px 0px 10px 1px rgba(229, 228, 226,0.7);
+            -moz-animation: fullexpand 13s ease-out;
+            -webkit-animation: fullexpand 13s ease-out;
+        }
+
+        /* Full Width Animation Bar */
+        @-moz-keyframes fullexpand {
+            0% { width: 0px;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        @-webkit-keyframes fullexpand {
+            0% {
+                width: 0px;
+            }
+
+            100% {
+                width: 100%;
+            };
+        }
     </style>
+    <script>
+        function processSave() {
+            document.getElementById("save").disabled = true;
+            document.getElementById("back").disabled = true;
+            document.getElementById('content').className = 'content_visible';
+            document.getElementById('mainForm').submit();
+        }
+        function main() {
+            console.log("sosi")
+            document.getElementById('content').className = 'content_hide';
+        }
+        document.addEventListener("DOMContentLoaded", main);
+
+    </script>
 </head>
 <body>
 <!-- Header -->
@@ -45,9 +107,14 @@
             <li><a href="#">Login</a></li>
         </ul>
     </div>
+
 </nav>
+<div id="content">
+    <span class="expand"></span>
+</div>
 <!-- Body -->
 <c:url var="saveUpdateAction" value="/documents/add"></c:url>
+
 <div class="container">
     <c:if test="${!empty document.uuid}">
         <h4>Редактирование документа</h4>
@@ -55,7 +122,7 @@
     <c:if test="${empty document.uuid}">
         <h4>Создание документа</h4>
     </c:if>
-    <form:form role="form" action="${saveUpdateAction}" method="POST"
+    <form:form id="mainForm" role="form" action="${saveUpdateAction}" method="POST"
                commandName="document" enctype="multipart/form-data">
 
         <c:if test="${!empty addEditErrorMess}">
@@ -90,19 +157,17 @@
         </c:if>
         <fieldset class="form-group">
             <label for="file">Загрузить</label>
-            <input type="file" class="form-control-file" id="file" name="file"/>
+            <input class="btn btn-default" type="file" class="form-control-file" id="file" name="file"/>
         </fieldset>
-        <br/>
-        <br/>
         <br/>
         <c:if test="${!empty document.uuid}">
             <form:hidden path="uuid"/>
-            <button type="submit" class="btn btn-success">Обновить</button>
+            <button id="save" onclick="processSave()" type="submit" class="btn btn-default">Обновить</button>
         </c:if>
         <c:if test="${empty document.uuid}">
-            <button type="submit" class="btn btn-success">Сохранить</button>
+            <button id="save" onclick="processSave()" type="submit" class="btn btn-default">Сохранить</button>
         </c:if>
-        <button type="button" onclick="history.go(-1);" class="btn btn-danger">Назад</button>
+        <button id="back" type="button" onclick="history.go(-1);" class="btn btn-grey">Назад</button>
     </form:form>
     <br/> <br/> <br/> <br/> <br/> <br/>
 </div>
@@ -116,4 +181,5 @@
         src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
         src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 </body>

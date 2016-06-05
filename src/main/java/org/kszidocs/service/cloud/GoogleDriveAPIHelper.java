@@ -22,7 +22,7 @@ public class GoogleDriveAPIHelper {
     private static final Drive client = GoogleDriveConnector.getClient();
 
     public static String uploadFile(String path, String mimeType, String description) {
-        java.io.File content = new java.io.File(GoogleDriveAPIHelper.class.getClassLoader().getResource(path).getFile());
+        java.io.File content = new java.io.File(path);
         File body = new File();
         body.setName(content.getName());
         body.setDescription(description);
@@ -41,6 +41,7 @@ public class GoogleDriveAPIHelper {
 
     public static void removeFile(String selfHref) {
         try {
+            logger.debug("Remove file '{}'",getFileIdFromHref(selfHref));
             client.files().delete(getFileIdFromHref(selfHref)).execute();
         } catch (IOException e) {
             logger.error("Unable to remove file", e);

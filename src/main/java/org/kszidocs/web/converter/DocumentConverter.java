@@ -45,27 +45,34 @@ public class DocumentConverter extends Converter<Document, DocumentDTO> {
         Document entity = null;
         if (dto.getUuid() != null) {
             entity = documentRepository.findOneByUuid(dto.getUuid());
-            entity = perfomUpdate(dto,entity);
+            entity = perfomUpdate(dto, entity);
         } else {
             entity = perfomNewEntity(dto);
         }
         return entity;
     }
 
-    private Document perfomUpdate(DocumentDTO dto,Document oldEntity) {
-        if(!dto.getTitle().equals(oldEntity.getTitle())) {
+    private Document perfomUpdate(DocumentDTO dto, Document oldEntity) {
+        if (!dto.getTitle().equals(oldEntity.getTitle())) {
             oldEntity.setTitle(dto.getTitle());
         }
-        if(!dto.getDescription().equals(oldEntity.getDescription())) {
+        if (!dto.getDescription().equals(oldEntity.getDescription())) {
             oldEntity.setDescription(dto.getDescription());
         }
-        if(!dto.getGroup().getUuid().equals(oldEntity.getGroup().getUuid())) {
+        if (!dto.getGroup().getUuid().equals(oldEntity.getGroup().getUuid())) {
             oldEntity.setGroup(Optional.ofNullable(dto.getGroup()).map(documentsGroupConverter.reverse()::convert).orElse(null));
         }
-        if(!dto.getFile().getOriginalFilename().equals(oldEntity.getFileName())) {
-            googleDriveService.removeDocument(oldEntity.getFileName());
-            oldEntity.setFileName(dto.getFile().getOriginalFilename());
-            oldEntity.setSelfHref(googleDriveService.uploadDocument(dto.getFile()));
+        if (!dto.getFile().getOriginalFilename().equals(oldEntity.getFileName())) {
+            if (!oldEntity.getFileName().isEmpty()) {
+                googleDriveService.removeDocument(oldEntity.getSelfHref());
+            }
+            if (dto.getFile() != null) {
+                oldEntity.setFileName(dto.getFile().getOriginalFilename());
+                oldEntity.setSelfHref(googleDriveService.uploadDocument(dto.getFile()));
+            } else {
+                oldEntity.setFileName("");
+                oldEntity.setSelfHref("");
+            }
         }
         return oldEntity;
     }
@@ -76,8 +83,13 @@ public class DocumentConverter extends Converter<Document, DocumentDTO> {
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
         entity.setGroup(Optional.ofNullable(dto.getGroup()).map(documentsGroupConverter.reverse()::convert).orElse(null));
-        entity.setFileName(dto.getFile().getOriginalFilename());
-        entity.setSelfHref(googleDriveService.uploadDocument(dto.getFile()));
+        if (dto.getFile() != null) {
+            entity.setFileName(dto.getFile().getOriginalFilename());
+            entity.setSelfHref(googleDriveService.uploadDocument(dto.getFile()));
+        } else {
+            entity.setFileName("");
+            entity.setSelfHref("");
+        }
         return entity;
     }
 }

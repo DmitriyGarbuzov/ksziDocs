@@ -78,12 +78,12 @@
         <br/>
         <c:if test="${!empty group.uuid}">
             <form:hidden path="uuid"/>
-            <button type="submit" class="btn btn-success">Обновить</button>
+            <button type="submit" class="btn btn-default">Обновить</button>
         </c:if>
         <c:if test="${empty group.uuid}">
-            <button type="submit" class="btn btn-success">Сохранить</button>
+            <button type="submit" class="btn btn-default">Сохранить</button>
         </c:if>
-        <button type="button" onclick="history.go(-1);" class="btn btn-danger">Назад</button>
+        <button class="btn btn-grey" onclick="history.go(-1);" >Назад</button>
     </form:form>
     <br/> <br/> <br/> <br/> <br/> <br/>
 </div>

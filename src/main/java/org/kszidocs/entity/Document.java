@@ -34,10 +34,10 @@ public class Document extends BaseEntity{
     @Column(name = "description", nullable = true)
     private String description;
 
-    @Column(name = "file_name", nullable = false)
+    @Column(name = "file_name", nullable = true)
     private String fileName;
 
-    @Column(name = "self_href", nullable = false)
+    @Column(name = "self_href", nullable = true)
     private String selfHref;
 
     @ManyToOne

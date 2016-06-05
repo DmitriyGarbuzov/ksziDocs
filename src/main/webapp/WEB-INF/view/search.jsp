@@ -64,7 +64,7 @@
                 </div>
                 <div class="radio disabled">
                     <label> <form:radiobutton path="searchType" name="gridRadio2"
-                                              id="gridRadios2" value="2" disabled="true"/> Поиск по описанию
+                                              id="gridRadios2" value="2" disabled="false"/> Поиск по ключевым словам
                     </label>
                 </div>
                 <div class="radio disabled">
@@ -74,10 +74,8 @@
                 </div>
             </div>
         </div>
-        <a href="javascript:;" title="Поиск"
-           onclick="document.getElementById('searchForm').submit();"><i
-                class="fa fa-search"></i></a>
-    <a title="Назад" onclick="history.go(-1);" ><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+        <button type="submit" class="btn btn-default">Поиск</button>
+        <button class="btn btn-grey" onclick="history.go(-1);" >Назад</button>
     </form:form>
     <br/>
 </div>
@@ -92,7 +90,7 @@
             <td>${doc.group.name}</td>
             <td>
                 <div class="pull-right">
-                    <a href="${doc.selfHref}" target="_blank">file ${doc.fileName}</a>
+                    <a href="${doc.selfHref}" target="_blank">${doc.fileName}</a>
                 </div>
             </td>
             </tr>
