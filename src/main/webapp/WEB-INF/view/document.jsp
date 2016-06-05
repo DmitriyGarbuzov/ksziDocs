@@ -77,7 +77,6 @@
             document.getElementById('mainForm').submit();
         }
         function main() {
-            console.log("sosi")
             document.getElementById('content').className = 'content_hide';
         }
         document.addEventListener("DOMContentLoaded", main);

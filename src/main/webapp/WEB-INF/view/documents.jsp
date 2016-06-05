@@ -61,9 +61,22 @@
         <ul class="nav navbar-nav">
             <li><a href="/search">Поиск</a></li>
         </ul>
-        <%--refactoring--%>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Login</a></li>
+            <sec:authorize access="isAnonymous()">
+                <li><a href="/login">Login </a></li>
+                <li><a href="/registration">Registration </a></li>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+                <li><p></p></li>
+                <li><a href="#>"><%= request.getUserPrincipal().getName() %>
+                </a></li>
+                <li style="margin-top: 15px;margin-right: 5px;"><form:form id="log_f"
+                                                                           action="${pageContext.request.contextPath}/logout"
+                                                                           method="POST">
+                    <a href="javascript:;" title="logout"
+                       onclick="document.getElementById('log_f').submit();">Logout</a>
+                </form:form></li>
+            </sec:authorize>
         </ul>
     </div>
 </nav>

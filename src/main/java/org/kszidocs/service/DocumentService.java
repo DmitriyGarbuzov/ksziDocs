@@ -72,7 +72,7 @@ public class DocumentService {
         return documentRepository
                 .findAll()
                 .stream()
-                .filter(document -> document.getTitle().contains(text))
+                .filter(document -> document.getTitle().toLowerCase().contains(text.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
@@ -80,7 +80,7 @@ public class DocumentService {
         return documentRepository
                 .findAll()
                 .stream()
-                .filter(document -> document.getDescription().contains(text))
+                .filter(document -> document.getDescription().toLowerCase().contains(text.toLowerCase()))
                 .collect(Collectors.toList());
     }
 }

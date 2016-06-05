@@ -40,9 +40,22 @@
         <ul class="nav navbar-nav">
             <li><a href="/search">Поиск</a></li>
         </ul>
-        <%--refactoring--%>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Login</a></li>
+            <sec:authorize access="isAnonymous()">
+                <li><a href="/login">Login </a></li>
+                <li><a href="/registration">Registration </a></li>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+                <li><p></p></li>
+                <li><a href="#>"><%= request.getUserPrincipal().getName() %>
+                </a></li>
+                <li style="margin-top: 15px;margin-right: 5px;"><form:form id="log_f"
+                                                                           action="${pageContext.request.contextPath}/logout"
+                                                                           method="POST">
+                    <a href="javascript:;" title="logout"
+                       onclick="document.getElementById('log_f').submit();">Logout</a>
+                </form:form></li>
+            </sec:authorize>
         </ul>
     </div>
 </nav>
@@ -58,7 +71,7 @@
             <label class="col-sm-2">Тип поиска</label>
             <div class="col-sm-10">
                 <div class="radio">
-                    <label> <form:radiobutton path="searchType"  name="gridRadio1"
+                    <label> <form:radiobutton path="searchType" name="gridRadio1"
                                               id="gridRadios1" value="1" checked="true"/>Поиск по теме
                     </label>
                 </div>
@@ -75,7 +88,7 @@
             </div>
         </div>
         <button type="submit" class="btn btn-default">Поиск</button>
-        <button class="btn btn-grey" onclick="history.go(-1);" >Назад</button>
+        <button class="btn btn-grey" onclick="history.go(-1);">Назад</button>
     </form:form>
     <br/>
 </div>

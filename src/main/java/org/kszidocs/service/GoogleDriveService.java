@@ -1,14 +1,10 @@
 package org.kszidocs.service;
 
-import org.kszidocs.entity.Document;
 import org.kszidocs.service.cloud.GoogleDriveAPIHelper;
 import org.kszidocs.util.FileHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Service
