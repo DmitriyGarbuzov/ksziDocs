@@ -153,7 +153,7 @@
             <form:textarea path="description" class="form-control" id="description" rows="3"/>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 form-control-label" for="groupSelect">Группа:</label>
+            <label class="col-sm-2 form-control-label" for="groupSelect">Папка:</label>
             <form:select path="group.uuid" id="groupSelect" class="form-control">
                 <c:forEach var="g" items="${groups}">
                     <option value="${g.uuid}" ${group.uuid == g.uuid ? 'selected="selected"' : ''} >${g.name}</option>

@@ -48,13 +48,13 @@
     <form role="form" action="/login" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <div class="form-group row">
-            <label for="username" class="col-sm-2 form-control-label">Username</label>
+            <label for="username" class="col-sm-2 form-control-label">Логин:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="username" id="username" required autofocus>
             </div>
         </div>
         <div class="form-group row">
-            <label for="password" class="col-sm-2 form-control-label">Пароль</label>
+            <label for="password" class="col-sm-2 form-control-label">Пароль:</label>
             <div class="col-sm-10">
                 <input type="password" class="form-control" name="password" id="password" required/>
             </div>

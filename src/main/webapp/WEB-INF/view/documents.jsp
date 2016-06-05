@@ -84,7 +84,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
-            <h4>Группы документов
+            <h4>Папки документов
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <a class="btn btn-grey" href="/groups/add">Создать</a>
                 </sec:authorize>
