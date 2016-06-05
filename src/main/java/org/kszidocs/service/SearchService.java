@@ -2,16 +2,24 @@ package org.kszidocs.service;
 
 import org.kszidocs.entity.Document;
 import org.kszidocs.repository.DocumentRepository;
+import org.kszidocs.service.cloud.GoogleDriveAPIHelper;
 import org.kszidocs.web.converter.DocumentConverter;
 import org.kszidocs.web.dto.DocumentDTO;
 import org.kszidocs.web.dto.SearchDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class SearchService {
+
+    private static final Logger logger = LoggerFactory
+            .getLogger(SearchService.class);
 
     @Autowired
     private GoogleDriveService googleDriveService;

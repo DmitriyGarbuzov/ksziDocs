@@ -85,6 +85,8 @@
     <table class="table">
         <tbody>
         <c:forEach items="${documents}" var="doc">
+            <td></td>
+            <td></td>
             <td>${doc.title}</td>
             <td>${doc.createdTs}</td>
             <td>${doc.group.name}</td>
@@ -93,6 +95,8 @@
                     <a href="${doc.selfHref}" target="_blank">${doc.fileName}</a>
                 </div>
             </td>
+            <td></td>
+            <td></td>
             </tr>
         </c:forEach>
         </tbody>

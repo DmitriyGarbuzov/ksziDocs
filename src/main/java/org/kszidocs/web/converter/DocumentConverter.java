@@ -9,6 +9,7 @@ import org.kszidocs.web.dto.DocumentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 @Component
@@ -23,12 +24,15 @@ public class DocumentConverter extends Converter<Document, DocumentDTO> {
     @Autowired
     GoogleDriveService googleDriveService;
 
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+
     @Override
     protected DocumentDTO doForward(Document entity) {
         DocumentDTO dto = new DocumentDTO();
 
         dto.setUuid(entity.getUuid());
         dto.setTitle(entity.getTitle());
+        dto.setCreatedTs(formatter.format(entity.getCreatedTs().toDate()));
         dto.setDescription(entity.getDescription());
         dto.setFileName(entity.getFileName());
         dto.setSelfHref(entity.getSelfHref());

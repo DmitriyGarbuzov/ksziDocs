@@ -16,9 +16,7 @@ public class DocumentDTO {
 
     private String selfHref;
 
-    private DateTime createdTs;
-
-    private DateTime modifiedTs;
+    private String createdTs;
 
     private MultipartFile file;
 
@@ -76,20 +74,12 @@ public class DocumentDTO {
         return file;
     }
 
-    public DateTime getCreatedTs() {
+    public String getCreatedTs() {
         return createdTs;
     }
 
-    public void setCreatedTs(DateTime createdTs) {
+    public void setCreatedTs(String createdTs) {
         this.createdTs = createdTs;
-    }
-
-    public DateTime getModifiedTs() {
-        return modifiedTs;
-    }
-
-    public void setModifiedTs(DateTime modifiedTs) {
-        this.modifiedTs = modifiedTs;
     }
 
     public void setFile(MultipartFile file) {
@@ -106,7 +96,6 @@ public class DocumentDTO {
                 ", selfHref='" + selfHref + '\'' +
                 ", documentsGroupDTO=" + group +
                 ", createdTs=" + createdTs +
-                ", modifiedTs=" + modifiedTs +
                 ", file=" + file +
                 '}';
     }

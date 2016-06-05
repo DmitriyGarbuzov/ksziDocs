@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,14 +65,14 @@ public class GoogleDriveAPIHelper {
             return client
                     .files()
                     .list()
-                    .setQ(text)
+                    .setQ("fullText contains '"+text+"'")
                     .execute().getFiles()
                     .stream()
                     .map(file -> String.format(SHARED_FILE_LINK_GOOGLE_DRIVE, file.getId()))
                     .collect(Collectors.toList());
         } catch (IOException e) {
             logger.error("Exception while searching files with query '" + text + "+'", e);
-            return null;
+            return new ArrayList<>();
         }
     }
 }
